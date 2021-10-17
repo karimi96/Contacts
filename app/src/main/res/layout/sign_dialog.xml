@@ -1,6 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingHorizontal="40dp"
+    android:paddingVertical="40dp"
+    android:elevation="30dp"
+    android:layout_gravity="center"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/tv_new_contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="مخاطب جدید"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:elevation="30dp"
+        android:fontFamily="@font/iran_sans"
+        app:layout_constraintBottom_toTopOf="@id/tv_input_anme"
+        app:layout_constraintStart_toStartOf="@+id/tv_input_anme"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="40dp" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tv_input_anme"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_new_contacts"
+        app:boxStrokeColor="#C5C4C4"
+        app:endIconMode="clear_text"
+        app:hintTextColor="#676767"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        android:gravity="center"
+        android:hint="نام و نام خانوادگی"
+        app:boxCornerRadiusTopStart="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/iran_sans"
+            android:drawableStart="@drawable/custom_person"
+            android:drawablePadding="10dp"
+            android:textSize="15dp"
+           android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textStyle="italic"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_phone"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:boxStrokeColor="#C5C4C4"
+        app:hintTextColor="#676767"
+        app:startIconTint="#afb1b3"
+        android:hint="تلفن"
+        app:counterEnabled="true"
+        app:counterMaxLength="12"
+        app:endIconMode="clear_text"
+        android:gravity="center"
+        app:startIconDrawable="@drawable/custom_phone"
+        app:boxCornerRadiusTopStart="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_input_anme"
+       >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/iran_sans"
+            android:textSize="15dp"
+            android:drawablePadding="10dp"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textStyle="italic" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+   <LinearLayout
+       app:layout_constraintTop_toBottomOf="@id/text_input_phone"
+       android:orientation="horizontal"
+       android:layout_marginTop="40dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <TextView
+           android:id="@+id/btn_save"
+           android:layout_marginEnd="10dp"
+           android:padding="10dp"
+           android:text="ذخیره"
+           android:gravity="center"
+           android:background="@drawable/custom_save"
+           android:typeface="sans"
+           android:textColor="@color/black"
+           android:textStyle="bold"
+           android:textSize="20dp"
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"/>
+
+       <TextView
+           android:id="@+id/btn_cancel"
+           android:layout_marginStart="10dp"
+           android:padding="10dp"
+           android:text="انصراف"
+           android:gravity="center"
+           android:background="@drawable/custom_close"
+           android:typeface="sans"
+           android:textColor="@color/black"
+           android:textStyle="bold"
+           android:textSize="20dp"
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"/>
+
+   </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

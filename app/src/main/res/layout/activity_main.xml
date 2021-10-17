@@ -8,26 +8,49 @@
     tools:context=".MainActivity">
 
 
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#ff018786"
+            app:title="مخاطب ها"
+            app:titleMarginStart="15dp"
+            app:menu="@menu/tool_bar"
+            app:collapseIcon="@color/white"
+            app:layout_scrollFlags="scroll|enterAlways"/>
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcy"
         tools:listitem="@layout/list_item_contacts"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginEnd="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
         app:elevation="15dp"
+        app:maxImageSize="35dp"
+        app:tint="#ffffff"
+        android:backgroundTint="#ff018786"
         android:src="@drawable/ic_round_add_24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
        />
-
-
 
 </RelativeLayout>

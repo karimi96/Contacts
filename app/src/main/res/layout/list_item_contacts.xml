@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:id="@+id/liniyer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,40 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="70dp">
 
+
         <LinearLayout
-            android:layout_weight="0.75"
+            android:layout_weight="0.20"
             android:layout_width="0dp"
             android:padding="8dp"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:fontFamily="casual"
-                android:text="عنوان"
-                android:textColor="#000000"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="5dp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="09121342342"
-                android:textColor="#6e6e6e"
-                android:textSize="15dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="0.25"
-            android:layout_width="0dp"
             android:layout_height="match_parent">
 
             <ImageView
@@ -56,12 +27,46 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_weight="0.80"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:fontFamily="casual"
+                android:text="عنوان"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:text="09121342342"
+                android:textColor="#6e6e6e"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
-        android:background="#000000"
-        android:layout_width="290dp"
-        android:layout_height="1.5dp"/>
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:layout_width="match_parent"
+        android:layout_marginStart="76dp"
+        android:layout_height="1dp"
+        android:background="#9C9B9B" />
 
 
 </LinearLayout>

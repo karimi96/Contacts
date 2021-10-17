@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/toolBar_share"
+        android:title="share"
+        android:icon="@drawable/ic_round_phone_24"/>
+    <item
+        android:id="@+id/toolBar_about"
+        android:title="about"
+        android:icon="@drawable/ic_round_person_24"/>
+    <item
+        android:id="@+id/toolBar_edit"
+        android:title="Edit"
+        android:iconTint="@color/black"
+        android:icon="@drawable/ic_round_phone_24"/>
+
+    <item
+        android:id="@+id/toolBar_setting"
+        android:title="setting"
+        app:showAsAction="always"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_round_search_24"/>
+
+    <item
+        android:id="@+id/toolBar_serch"
+        android:title="search"
+        app:showAsAction="always"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_round_settings_24"/>
 
 </menu>
