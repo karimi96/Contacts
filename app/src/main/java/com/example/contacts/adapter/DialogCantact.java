@@ -1,4 +1,4 @@
-package com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.adapter;
+package com.example.contacts.adapter;
 
 public class DialogCantact {
     public String name;

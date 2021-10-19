@@ -1,8 +1,7 @@
-package com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn;
-
-import java.util.ArrayList;
+package com.example.contacts;
 
 public class Contact {
+    int id;
     String title;
     String phone;
 //    ArrayList<String> tit;
@@ -28,6 +27,15 @@ public class Contact {
 //        this.title = title;
 //        this.phone = phone;
 //    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

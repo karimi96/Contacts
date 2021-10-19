@@ -18,55 +18,111 @@
             android:padding="8dp"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_contact"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_round_person_24"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImage"
+                android:src="@drawable/girls"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
+<!--            <ImageView-->
+<!--                android:id="@+id/img_contact"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:src="@drawable/ic_round_person_24"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_weight="0.80"
             android:layout_width="0dp"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="3"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_width="0dp"
                 android:layout_gravity="start"
-                android:fontFamily="casual"
-                android:text="عنوان"
-                android:textColor="#000000"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tv_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="5dp"
-                android:fontFamily="sans-serif-smallcaps"
-                android:text="09121342342"
-                android:textColor="#6e6e6e"
-                android:textSize="15dp" />
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="casual"
+                    android:text="عنوان"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="09121342342"
+                    android:textColor="#6e6e6e"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+
+           <LinearLayout
+               android:layout_weight="1"
+               android:layout_width="0dp"
+               android:gravity="end"
+               android:layout_height="match_parent">
+
+               <ImageView
+                   android:id="@+id/img_edit"
+                   android:layout_gravity="end"
+                   android:src="@drawable/ic_baseline_edit_24"
+                   android:layout_width="40dp"
+                   android:padding="5dp"
+                   android:layout_height="match_parent"/>
+
+               <ImageView
+                   android:id="@+id/img_delet"
+                   android:layout_gravity="end"
+                   android:layout_marginStart="10dp"
+                   android:padding="5dp"
+                   android:src="@drawable/ic_baseline_delete_24"
+                   android:layout_width="40dp"
+                   android:layout_height="match_parent"/>
+
+           </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
+
     <LinearLayout
-        android:layout_gravity="start"
-        android:gravity="start"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_marginStart="76dp"
-        android:layout_height="1dp"
-        android:background="#9C9B9B" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.20"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_weight="0.80"
+            android:layout_height="1dp"
+            android:background="#9C9B9B" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

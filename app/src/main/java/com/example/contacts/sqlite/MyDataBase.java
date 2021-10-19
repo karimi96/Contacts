@@ -1,16 +1,14 @@
-package com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.sqlite;
+package com.example.contacts.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.Contact;
+import com.example.contacts.Contact;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class MyDataBase extends SQLiteOpenHelper {
     private static final String DB_Name = "MyContacts.db";
@@ -107,6 +105,7 @@ public class MyDataBase extends SQLiteOpenHelper {
             do {
                 contact = new Contact();
 
+                contact.setId(cursor.getInt(cursor.getColumnIndex("cID")));
                 contact.setTitle(cursor.getString(cursor.getColumnIndex("name")));
                 contact.setDis(cursor.getString(cursor.getColumnIndex("phone")));
                 personLinkedList.add(contact);
@@ -118,10 +117,9 @@ public class MyDataBase extends SQLiteOpenHelper {
     }
 
 
-    public void deletdelet(int pos){
+    public void deletdelet(int id){
        SQLiteDatabase db = this.getWritableDatabase();
-       int mytable = db.delete("Contacts" , "cID = '" +pos+ "'",null);
-
+       db.execSQL("delete from Contacts where cID ="+id);
     }
 
 

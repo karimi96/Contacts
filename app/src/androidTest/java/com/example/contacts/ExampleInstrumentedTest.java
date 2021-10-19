@@ -1,4 +1,4 @@
-package com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn;
+package com.example.contacts;
 
 import android.content.Context;
 

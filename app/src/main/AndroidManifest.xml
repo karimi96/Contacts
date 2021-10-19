@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn">
+    package="com.example.contacts">
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/contacts_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/contacts_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplicationnnnnnnnnnnnnnnnnnnnnnnnnnn">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.contact">
+        <activity android:name="com.example.contacts.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

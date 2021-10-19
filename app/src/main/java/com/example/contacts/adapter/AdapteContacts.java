@@ -1,23 +1,21 @@
-package com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.adapter;
+package com.example.contacts.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.Contact;
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.MainActivity;
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.R;
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.sqlite.MyDataBase;
+import com.example.contacts.Contact;
+import com.example.contacts.MainActivity;
+import com.example.contacts.R;
+import com.example.contacts.sqlite.MyDataBase;
 
 import java.util.ArrayList;
 
@@ -30,6 +28,7 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
     int picture;
     Context context;
     MainActivity mainActivity;
+    MyDataBase db;
 
 
     public AdapteContacts(ArrayList<Contact> arrayList, Context context) {
@@ -37,11 +36,12 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
         this.context = context;
     }
 
-    public AdapteContacts(ArrayList<Contact> arrayList, int picture, Context context,MainActivity mainActivity) {
+    public AdapteContacts(ArrayList<Contact> arrayList,MyDataBase db, int picture, Context context,MainActivity mainActivity) {
         this.arrayList = arrayList;
         this.picture = picture;
         this.context = context;
         this.mainActivity = mainActivity;
+        this.db = db;
 
     }
     //    public AdapteContacts(ArrayList<String> arrayList_name, ArrayList<String> arrayList_phone, int picture, Context context) {
@@ -62,7 +62,7 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
     @Override
     public void onBindViewHolder(AdapteContacts.ViewHolder holder, int position) {
         Contact contact = arrayList.get(position);
-        holder.title.setText(contact.getTitle() );
+        holder.title.setText(contact.getId() +"-" +contact.getTitle() );
         holder.phoen.setText(contact.getDis());
         holder.pic.setImageResource(picture);
         holder.delet.setOnClickListener(new View.OnClickListener() {
@@ -70,16 +70,14 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
             public void onClick(View v) {
 //                holder.delet.setImageDrawable(R.drawable.ic_sharp_delete_24);
 
-                new AlertDialog.Builder(context)
-                        .setTitle("درخواست مجوز")
-                        .setMessage("برای دسترسی به دوربین باید مجوز را تایید کنید")
-                        .setPositiveButton("موافقم", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+//                new AlertDialog.Builder(context)
+//                        .setTitle("درخواست مجوز")
+//                        .setMessage("برای دسترسی به دوربین باید مجوز را تایید کنید")
+//                        .setPositiveButton("موافقم", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                                Contact contact = new Contact();
-                                MyDataBase dbHelper = new MyDataBase(context);
-                                dbHelper.deletdelet(position);
+                                db.deletdelet(contact.getId());
                                 arrayList.remove(position);
 //                              recyclerView.removeViewAt(position);
                                 notifyItemRemoved(position);
@@ -88,18 +86,18 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
                                 Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
 
 
-                            }
-                        })
-                        .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                dialogInterface.dismiss();
-
-                            }
-                        })
-                        .create()
-                        .show();
+//                            }
+//                        })
+//                        .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                dialogInterface.dismiss();
+//
+//                            }
+//                        })
+//                        .create()
+//                        .show();
 
             }
         });

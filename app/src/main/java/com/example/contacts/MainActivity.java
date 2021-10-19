@@ -1,48 +1,30 @@
-package com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn;
+package com.example.contacts;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.adapter.AdapteContacts;
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.adapter.DialogCantact;
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.sqlite.MyDataBase;
-import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.sqlite.Sqlite;
+import com.example.contacts.adapter.AdapteContacts;
+import com.example.contacts.sqlite.MyDataBase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class MainActivity extends AppCompatActivity {
     AdapteContacts adapteContacts;
@@ -164,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 //            arrayList.add(new  Contact(name,phone,R.drawable.ic_baseline_person_24));
 //
 //        }
-        adapteContacts = new AdapteContacts(myDataBase.peopleList(),R.drawable.girls,MainActivity.this,this);
+        adapteContacts = new AdapteContacts(myDataBase.peopleList(),myDataBase,R.drawable.girls,MainActivity.this,this);
             recyclerView.setAdapter(adapteContacts);
 
 
