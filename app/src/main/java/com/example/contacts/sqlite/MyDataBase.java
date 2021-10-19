@@ -5,6 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
+
+import com.example.myapplicationnnnnnnnnnnnnnnnnnnnnnnnnnn.Contact;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class MyDataBase extends SQLiteOpenHelper {
     private static final String DB_Name = "MyContacts.db";
@@ -31,6 +37,24 @@ public class MyDataBase extends SQLiteOpenHelper {
     }
 
 
+//    Use With Contact Class
+    public  void add_Contact_new(Contact contact){
+        SQLiteDatabase db =this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name",contact.getTitle() );
+        cv.put("phone",contact.getDis() );
+        long result = db.insert("Contacts",null,cv);
+//        if (result == -1){
+//            Toast.makeText(context, "Faild", Toast.LENGTH_SHORT).show();
+//        }else {
+//            Toast.makeText(context, "Add Seccesfully", Toast.LENGTH_SHORT).show();
+//        }
+            db.close();
+    }
+
+
+
+// Without Use Contact Class
     public void add_Contact(String namee,String phonee){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -44,6 +68,8 @@ public class MyDataBase extends SQLiteOpenHelper {
 //        }
 
     }
+
+
     public Cursor show_all_data(){
         SQLiteDatabase database = this.getReadableDatabase();
         String query = " SELECT * FROM Contacts";
@@ -64,29 +90,43 @@ public class MyDataBase extends SQLiteOpenHelper {
 
     }
 
-    public boolean delet_item_cursor(int pos){
-        SQLiteDatabase database = this.getWritableDatabase();
-        database.rawQuery("delete name from Contacts where cID="+pos,null);
-        return true;
+
+
+    public ArrayList<Contact> peopleList() {
+        String query;
+        //regular query
+        query = "SELECT  * FROM Contacts";
+
+
+        ArrayList<Contact> personLinkedList = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Contact contact;
+
+        if (cursor.moveToFirst()) {
+            do {
+                contact = new Contact();
+
+                contact.setTitle(cursor.getString(cursor.getColumnIndex("name")));
+                contact.setDis(cursor.getString(cursor.getColumnIndex("phone")));
+                personLinkedList.add(contact);
+            } while (cursor.moveToNext());
+        }
+//        db.close();
+        return personLinkedList;
+
     }
 
 
-    public boolean delet_item(int pos){
-        SQLiteDatabase database = this.getWritableDatabase();
-//        String query = "delete name from Contacts where cID =" + pos;
-//        Cursor cursor = database.rawQuery(query,null);
-        long result = database.delete("Contacts","cID=?"+ pos,null );
-       if(result == 0)
-        return false;
-       else
-           return true;
+    public void deletdelet(int pos){
+       SQLiteDatabase db = this.getWritableDatabase();
+       int mytable = db.delete("Contacts" , "cID = '" +pos+ "'",null);
+
     }
 
 
 
-
-
-
+//    Use With My Way
 
 //    public String getname(int pos){
 //        SQLiteDatabase mDB= this.getReadableDatabase();

@@ -56,10 +56,15 @@ public class MainActivity extends AppCompatActivity {
     MyDataBase myDataBase;
     Toolbar toolbar;
 
+    String name;
+    String phone;
+
+    public TextInputEditText dName;
+    public TextInputEditText dPhone;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tool_bar,menu);
+//        getMenuInflater().inflate(R.menu.tool_bar,menu);
         return true;
     }
 
@@ -74,39 +79,40 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //</editor-fold>
 
-
             init_Recycler();
-//        adapteContacts = new AdapteContacts(arrayName,arrayPhone,R.drawable.ic_baseline_person_24,MainActivity.this);
-//        recyclerView.setAdapter(adapteContacts);
-
 
         dialog_show();
-        TextInputEditText dName = dialog.findViewById(R.id.et_name);
-        TextInputEditText dPhone = dialog.findViewById(R.id.et_phone);
+        dName = dialog.findViewById(R.id.et_name);
+        dPhone = dialog.findViewById(R.id.et_phone);
 
 
         TextView save = dialog.findViewById(R.id.btn_save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-                String name = dName.getText().toString();
-                String phone = dPhone.getText().toString();
+
+                name = dName.getText().toString();
+                phone = dPhone.getText().toString();
 
                 if(TextUtils.isEmpty(name) || TextUtils.isEmpty(phone)){
 
                     Toast.makeText(MainActivity.this, "تمامی فیلدها باید تکمیل شود", Toast.LENGTH_LONG).show();
 
                 }else {
+                    save.setBackgroundColor(getResources().getColor(R.color.teal_700));
 
-                    MyDataBase dataBase = new MyDataBase(MainActivity.this);
-                    dataBase.add_Contact(name,phone);
+
+                    myDataBase.add_Contact_new(new Contact(name,phone,R.drawable.ic_baseline_person_24));
+//                    MyDataBase dataBase = new MyDataBase(MainActivity.this);
+//                    dataBase.add_Contact(name,phone);
+
                     init_Recycler();
                     Toast.makeText(MainActivity.this, name+ "  با موفقیت ثبت شد ", Toast.LENGTH_LONG).show();
                     dName.setText("");
                     dPhone.setText("");
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
+
             }
         });
 
@@ -116,9 +122,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                boolean pos = myDataBase.delet_item_cursor(5);
-
-                    Toast.makeText(MainActivity.this," faild in delet data" , Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this," کنسل شد" , Toast.LENGTH_LONG).show();
 
                 dialog.dismiss();
 
@@ -142,17 +146,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void init_Recycler(){
         myDataBase = new MyDataBase(MainActivity.this);
+
         arrayName = new ArrayList<>();
         arrayPhone = new ArrayList<>();
-        get_all_data();
+//        get_all_data();
         recyclerView = findViewById(R.id.rcy);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapteContacts = new AdapteContacts(arrayName,arrayPhone,R.drawable.ic_baseline_person_24,MainActivity.this);
+//        adapteContacts = new AdapteContacts(arrayName,arrayPhone,R.drawable.ic_baseline_person_24,MainActivity.this);
 //        for (int i = 0; i < myDataBase.getcount(); i++) {
 //            arrayList = new ArrayList<>();
 //            arrayList.add(new Contact(arrayName,arrayPhone,R.drawable.ic_baseline_person_24));
 //            adapteContacts = new AdapteContacts(arrayList,MainActivity.this);
+//        Cursor cursor = myDataBase.show_all_data();
+//        for (int i = 0; i <cursor.getCount(); i++) {
+//            arrayList = new ArrayList<>();
+//            arrayList.add(new  Contact(name,phone,R.drawable.ic_baseline_person_24));
+//
+//        }
+        adapteContacts = new AdapteContacts(myDataBase.peopleList(),R.drawable.girls,MainActivity.this,this);
             recyclerView.setAdapter(adapteContacts);
 
 
@@ -167,7 +179,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
 //        EditText dName = dialog.findViewById(R.id.et_name);
 //        EditText dPhone = dialog.findViewById(R.id.et_phone);
-        TextInputLayout inputLayout_Name = dialog.findViewById(R.id.tv_input_anme);
+
+
 
     }
 
@@ -182,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 arrayPhone.add(cursor.getString(2));
             }
         }
+
     }
 
 
@@ -215,13 +229,14 @@ public class MainActivity extends AppCompatActivity {
         public void onSwiped( RecyclerView.ViewHolder viewHolder, int direction) {
 
             int position = viewHolder.getAdapterPosition();
+            arrayList=new ArrayList<>();
+
 
             switch (direction){
                 case ItemTouchHelper.LEFT:
-                    deletedMovie = arrayName.get(position);
-                    myDataBase.delet_item(position);
-                    arrayName.remove(position);
-                    adapteContacts.notifyItemRemoved(position);
+//                    deletedMovie = arrposition);
+                    arrayList.remove(position);
+//                    adapteContacts.notifyItemRemoved(position);
                     Snackbar.make(recyclerView,deletedMovie,Snackbar.LENGTH_LONG)
                             .setAction("Undo", new View.OnClickListener() {
                                 @SuppressLint("ResourceAsColor")
@@ -259,25 +274,6 @@ public class MainActivity extends AppCompatActivity {
 //                    .decorate();
 //            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 //        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
