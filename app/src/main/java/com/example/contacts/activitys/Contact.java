@@ -1,5 +1,7 @@
 package com.example.contacts;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 public class Contact {
     int id;
     String title;
