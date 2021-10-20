@@ -1,4 +1,4 @@
-package com.example.contacts;
+package com.example.contacts.activitys;
 
 import androidx.recyclerview.widget.RecyclerView;
 

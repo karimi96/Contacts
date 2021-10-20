@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.contacts.Contact;
+import com.example.contacts.activitys.Contact;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class MyDataBase extends SQLiteOpenHelper {
 
 
 
-// Without Use Contact Class
+// Without Use Contact Class By my way
     public void add_Contact(String namee,String phonee){
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -67,7 +67,7 @@ public class MyDataBase extends SQLiteOpenHelper {
 
     }
 
-
+// Show date main methot
     public Cursor show_all_data(){
         SQLiteDatabase database = this.getReadableDatabase();
         String query = " SELECT * FROM Contacts";
@@ -79,13 +79,12 @@ public class MyDataBase extends SQLiteOpenHelper {
     }
 
 
-    public void update_data(String nam ,String ph,int pos){
+    public void update_data(Contact contact , int pos ){
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put("name",nam);
-        values.put("phone",ph);
+        values.put("name",contact.getTitle());
+        values.put("phone",contact.getDis());
         database.update("Contacts",values,"cID=" + pos,null);
-
     }
 
 
@@ -94,8 +93,6 @@ public class MyDataBase extends SQLiteOpenHelper {
         String query;
         //regular query
         query = "SELECT  * FROM Contacts";
-
-
         ArrayList<Contact> personLinkedList = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);

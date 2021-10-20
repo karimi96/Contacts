@@ -11,7 +11,7 @@
         android:roundIcon="@drawable/contacts_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.contact">
-        <activity android:name="com.example.contacts.MainActivity">
+        <activity android:name="com.example.contacts.activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

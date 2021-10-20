@@ -1,8 +1,7 @@
 package com.example.contacts.adapter;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,11 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.contacts.Contact;
-import com.example.contacts.MainActivity;
+import com.example.contacts.activitys.Contact;
+import com.example.contacts.activitys.MainActivity;
 import com.example.contacts.R;
 import com.example.contacts.sqlite.MyDataBase;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -29,21 +29,30 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
     Context context;
     MainActivity mainActivity;
     MyDataBase db;
+    Dialog dialog;
+    TextInputEditText dname;
+    TextInputEditText dphone;
+    TextView tv_save;
+    TextView tv_cancel;
+    RecyclerView recyclerView;
 
 
-    public AdapteContacts(ArrayList<Contact> arrayList, Context context) {
-        this.arrayList = arrayList;
-        this.context = context;
+    public AdapteContacts() {
+
     }
 
-    public AdapteContacts(ArrayList<Contact> arrayList,MyDataBase db, int picture, Context context,MainActivity mainActivity) {
+    public AdapteContacts(ArrayList<Contact> arrayList,MyDataBase db,Dialog dialog,RecyclerView recyclerView,TextInputEditText dname, int picture, Context context,MainActivity mainActivity) {
         this.arrayList = arrayList;
         this.picture = picture;
         this.context = context;
         this.mainActivity = mainActivity;
         this.db = db;
+        this.dialog=dialog;
+        this.dname=dname;
+        this.recyclerView =recyclerView;
 
     }
+
     //    public AdapteContacts(ArrayList<String> arrayList_name, ArrayList<String> arrayList_phone, int picture, Context context) {
 //        this.arrayList_name = arrayList_name;
 //        this.arrayList_phone = arrayList_phone;
@@ -62,7 +71,7 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
     @Override
     public void onBindViewHolder(AdapteContacts.ViewHolder holder, int position) {
         Contact contact = arrayList.get(position);
-        holder.title.setText(contact.getId() +"-" +contact.getTitle() );
+        holder.title.setText(contact.getTitle() );
         holder.phoen.setText(contact.getDis());
         holder.pic.setImageResource(picture);
         holder.delet.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +84,7 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
 //                        .setMessage("برای دسترسی به دوربین باید مجوز را تایید کنید")
 //                        .setPositiveButton("موافقم", new DialogInterface.OnClickListener() {
 //                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                            public void onClick(DialogInterface dialogInterface, int i
 
                                 db.deletdelet(contact.getId());
                                 arrayList.remove(position);
@@ -84,8 +93,6 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
                                 notifyItemRangeChanged(position, arrayList.size());
                                 notifyDataSetChanged();
                                 Toast.makeText(context, "با موفقیت حذف شد 😉 ", Toast.LENGTH_LONG).show();
-
-
 //                            }
 //                        })
 //                        .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
@@ -98,20 +105,63 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
 //                        })
 //                        .create()
 //                        .show();
-
             }
         });
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//               mainActivity = new MainActivity();
-//               mainActivity.setContentView(R.layout.sign_dialog);
-//                mainActivity.dialog_show();
+//                mainActivity=new MainActivity();
+                dialog = new Dialog(context);
+                dialog.setContentView(R.layout.sign_dialog);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+                dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+                dname = dialog.findViewById(R.id.et_name);
+                dphone = dialog.findViewById(R.id.et_phone);
+                tv_save = dialog.findViewById(R.id.btn_save);
+                tv_cancel = dialog.findViewById(R.id.btn_cancel);
+
+                dname.setText(contact.getTitle());
+                dphone.setText(contact.getDis());
+                dialog.show();
+                tv_save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String new_name = dname.getText().toString();
+                        String new_phone = dphone.getText().toString();
+                        db.update_data(new Contact(new_name,new_phone,R.drawable.girls),contact.getId());
+                        arrayList.get(position).setTitle(new_name);
+                        arrayList.get(position).setDis(new_phone);
+                        notifyItemChanged(position);
+                        dialog.dismiss();
+//                        recyclerView = new RecyclerView(context);
+//                        recyclerView.findViewById(R.id.rcy);
+//                        context = new AdapteContacts(db.peopleList(),picture);
+//                        recyclerView.setAdapter(context);
+//                        db.add_Contact_new(new Contact(new_name,new_name,R.drawable.girls));
+//                        Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
+                    }
+
+                });
+                tv_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, "داده ای ذخیره نشد", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+
+
+//                mainActivity.setContentView(R.layout.sign_dialog);
+//                  mainActivity.dialog_show();
 //                mainActivity.dName.setText(holder.title.getText());
 //                mainActivity.dPhone.setText(holder.title.getText());
-                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
             }
+            
+
+
         });
 
 
@@ -153,6 +203,20 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
             edit = itemView.findViewById(R.id.img_edit);
 
         }
+
+
+
+
+        public Contact removeItem(int position) {
+            Contact item = null;
+
+                item = arrayList.get(position);
+                arrayList.remove(position);
+                notifyItemRemoved(position);
+            return item;
+        }
+
+
     }
 
 

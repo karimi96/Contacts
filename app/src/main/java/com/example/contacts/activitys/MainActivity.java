@@ -1,4 +1,4 @@
-package com.example.contacts;
+package com.example.contacts.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.contacts.R;
 import com.example.contacts.adapter.AdapteContacts;
 import com.example.contacts.sqlite.MyDataBase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,8 +31,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class MainActivity extends AppCompatActivity {
     AdapteContacts adapteContacts;
@@ -130,85 +129,83 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        String deletedMovie = null ;
-//        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                return false;
-//            }
+        String deletedMovie = null ;
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+//                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
+                Intent sms = new Intent(Intent.ACTION_VIEW);
+                    sms.putExtra("sms_body","Hello guys");
+                    sms.putExtra("address","09107657234");
+                    sms.setData(Uri.parse("smsto:"));
+                    sms.setType("vnd.android-dir/mms-sms");
+                    startActivity(sms);
 //
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-//
-////                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
-//                Intent sms = new Intent(Intent.ACTION_VIEW);
+                
+                int position = viewHolder.getAdapterPosition();
+                arrayList = new ArrayList<>();
+                switch (direction) {
+                    case ItemTouchHelper.LEFT:
+//                    deletedMovie = arrayList(position);
+                        arrayList.remove(position);
+//                    adapteContacts.notifyItemRemoved(position);
+                        Snackbar.make(recyclerView, deletedMovie, Snackbar.LENGTH_LONG)
+                                .setAction("Undo", new View.OnClickListener() {
+                                    @SuppressLint("ResourceAsColor")
+                                    @Override
+                                    public void onClick(View v) {
+                                        arrayName.add(position, deletedMovie);
+                                        adapteContacts.notifyItemInserted(position);
+                                    }
+                                }).show();
+                        break;
+
+                    case ItemTouchHelper.RIGHT:
+
+                        String phonnumber = "09898989898";
+                        Intent call = new Intent(Intent.ACTION_DIAL);
+                        call.setData(Uri.parse("tel:" + phonnumber));
+                        startActivity(call);
+
+//                    Intent sms = new Intent(Intent.ACTION_VIEW);
 //                    sms.putExtra("sms_body","Hello guys");
 //                    sms.putExtra("address","09107657234");
 //                    sms.setData(Uri.parse("smsto:"));
 //                    sms.setType("vnd.android-dir/mms-sms");
 //                    startActivity(sms);
-////
-                
-//                int position = viewHolder.getAdapterPosition();
-//                arrayList = new ArrayList<>();
-//                switch (direction) {
-//                    case ItemTouchHelper.LEFT:
-////                    deletedMovie = arrayList(position);
-//                        arrayList.remove(position);
-////                    adapteContacts.notifyItemRemoved(position);
-//                        Snackbar.make(recyclerView, deletedMovie, Snackbar.LENGTH_LONG)
-//                                .setAction("Undo", new View.OnClickListener() {
-//                                    @SuppressLint("ResourceAsColor")
-//                                    @Override
-//                                    public void onClick(View v) {
-//                                        arrayName.add(position, deletedMovie);
-//                                        adapteContacts.notifyItemInserted(position);
-//                                    }
-//                                }).show();
-//                        break;
-//
-//                    case ItemTouchHelper.RIGHT:
-//
-//                        String phonnumber = "09898989898";
-//                        Intent call = new Intent(Intent.ACTION_DIAL);
-//                        call.setData(Uri.parse("tel:" + phonnumber));
-//                        startActivity(call);
-//
-////                    Intent sms = new Intent(Intent.ACTION_VIEW);
-////                    sms.putExtra("sms_body","Hello guys");
-////                    sms.putExtra("address","09107657234");
-////                    sms.setData(Uri.parse("smsto:"));
-////                    sms.setType("vnd.android-dir/mms-sms");
-////                    startActivity(sms);
-//
-//                        break;
-//                }
-//            }
 
-//            @Override
-//        public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive){
-//                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-//                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-//                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
-//                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_person_24)
-//                    .addSwipeRightBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
-//                    .addSwipeRightActionIcon(R.drawable.ic_baseline_person_24)
-////                    .addSwipeRightLabel(getString())
-//                    .setSwipeRightLabelColor(Color.WHITE)
-////                    .addSwipeLeftLabel(getString(R.string.action_archive))
-//                    .setSwipeLeftLabelColor(Color.WHITE)
-//                    .create()
-//                    .decorate();
+                        break;
+                }
+            }
 
-//        }
+            @Override
+        public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive){
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
+                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_person_24)
+                    .addSwipeRightBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
+                    .addSwipeRightActionIcon(R.drawable.ic_baseline_person_24)
+//                    .addSwipeRightLabel(getString())
+                    .setSwipeRightLabelColor(Color.WHITE)
+//                    .addSwipeLeftLabel(getString(R.string.action_archive))
+                    .setSwipeLeftLabelColor(Color.WHITE)
+                    .create()
+                    .decorate();
+
+        }
 
 
+        };
 
-
-//        };
-
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-//        itemTouchHelper.attachToRecyclerView(recyclerView);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
     }
 
@@ -284,86 +281,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //        }
 //    }
-
-
-    String deletedMovie = null ;
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-        @Override
-        public boolean onMove(RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder,  RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped( RecyclerView.ViewHolder viewHolder, int direction) {
-            int position = viewHolder.getAdapterPosition();
-            arrayList=new ArrayList<>();
-            switch (direction){
-                case ItemTouchHelper.LEFT:
-//                    deletedMovie = arrayList(position);
-                    arrayList.remove(position);
-//                    adapteContacts.notifyItemRemoved(position);
-                    Snackbar.make(recyclerView,deletedMovie,Snackbar.LENGTH_LONG)
-                            .setAction("Undo", new View.OnClickListener() {
-                                @SuppressLint("ResourceAsColor")
-                                @Override
-                                public void onClick(View v) {
-                                    arrayName.add(position ,deletedMovie);
-                                    adapteContacts.notifyItemInserted(position);
-                                }
-                            }).show();
-                    break;
-
-                case ItemTouchHelper.RIGHT:
-                    int o = viewHolder.getAdapterPosition();
-                 String phonnumber = "09898989898";
-                Intent call = new Intent(Intent.ACTION_DIAL);
-                call.setData(Uri.parse("tel:" + phonnumber));
-                startActivity(call);
-
-//                    Intent sms = new Intent(Intent.ACTION_VIEW);
-//                    sms.putExtra("sms_body","Hello guys");
-//                    sms.putExtra("address","09107657234");
-//                    sms.setData(Uri.parse("smsto:"));
-//                    sms.setType("vnd.android-dir/mms-sms");
-//                    startActivity(sms);
-
-                    break;
-            }
-        }
-
-//        @Override
-//        public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive){
-//            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-//                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
-//                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_person_24)
-//                    .addSwipeRightBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
-//                    .addSwipeRightActionIcon(R.drawable.ic_baseline_person_24)
-////                    .addSwipeRightLabel(getString())
-//                    .setSwipeRightLabelColor(Color.WHITE)
-////                    .addSwipeLeftLabel(getString(R.string.action_archive))
-//                    .setSwipeLeftLabelColor(Color.WHITE)
-//                    .create()
-//                    .decorate();
-//            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-//        }
-
-
-
-//        public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,float dX, float dY,int actionState, boolean isCurrentlyActive){
-//            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-//
-//            new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-//                    .addBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
-//                    .addActionIcon(R.drawable.ic_baseline_person_24)
-//                    .create()
-//                    .decorate();
-//        }
-
-
-
-
-
-    };
 
 
 
