@@ -3,20 +3,26 @@ package com.example.contacts.activitys;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db;
     MyDataBase myDataBase;
     Toolbar toolbar;
-
     String name;
     String phone;
 
     public TextInputEditText dName;
     public TextInputEditText dPhone;
+    private static final int OPEN_DOCUMENT_CODE = 2;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //</editor-fold>
 
-            init_Recycler();
-
+        init_Recycler();
         dialog_show();
         dName = dialog.findViewById(R.id.et_name);
         dPhone = dialog.findViewById(R.id.et_phone);
@@ -88,12 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }else {
 //                    save.setBackgroundColor(getResources().getColor(R.color.teal_700));
-
-
                     myDataBase.add_Contact_new(new Contact(name,phone,R.drawable.ic_baseline_person_24));
-//                    MyDataBase dataBase = new MyDataBase(MainActivity.this);
-//                    dataBase.add_Contact(name,phone);
-
                     init_Recycler();
                     Toast.makeText(MainActivity.this, name+ "  با موفقیت ثبت شد ", Toast.LENGTH_LONG).show();
                     dName.setText("");
@@ -111,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                     Toast.makeText(MainActivity.this," کنسل شد" , Toast.LENGTH_LONG).show();
-
                 dialog.dismiss();
 
             }
@@ -122,116 +122,36 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+
+//                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+//                    intent.setType("image/*");
+//                    startActivityForResult(intent, OPEN_DOCUMENT_CODE);
+
               dialog.show();
 
             }
         });
 
 
-
-        String deletedMovie = null ;
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
-//                Toast.makeText(MainActivity.this, "hello", Toast.LENGTH_SHORT).show();
-                Intent sms = new Intent(Intent.ACTION_VIEW);
-                    sms.putExtra("sms_body","Hello guys");
-                    sms.putExtra("address","09107657234");
-                    sms.setData(Uri.parse("smsto:"));
-                    sms.setType("vnd.android-dir/mms-sms");
-                    startActivity(sms);
-//
-                
-                int position = viewHolder.getAdapterPosition();
-                arrayList = new ArrayList<>();
-                switch (direction) {
-                    case ItemTouchHelper.LEFT:
-//                    deletedMovie = arrayList(position);
-                        arrayList.remove(position);
-//                    adapteContacts.notifyItemRemoved(position);
-                        Snackbar.make(recyclerView, deletedMovie, Snackbar.LENGTH_LONG)
-                                .setAction("Undo", new View.OnClickListener() {
-                                    @SuppressLint("ResourceAsColor")
-                                    @Override
-                                    public void onClick(View v) {
-                                        arrayName.add(position, deletedMovie);
-                                        adapteContacts.notifyItemInserted(position);
-                                    }
-                                }).show();
-                        break;
-
-                    case ItemTouchHelper.RIGHT:
-
-                        String phonnumber = "09898989898";
-                        Intent call = new Intent(Intent.ACTION_DIAL);
-                        call.setData(Uri.parse("tel:" + phonnumber));
-                        startActivity(call);
-
-//                    Intent sms = new Intent(Intent.ACTION_VIEW);
-//                    sms.putExtra("sms_body","Hello guys");
-//                    sms.putExtra("address","09107657234");
-//                    sms.setData(Uri.parse("smsto:"));
-//                    sms.setType("vnd.android-dir/mms-sms");
-//                    startActivity(sms);
-
-                        break;
-                }
-            }
-
-            @Override
-        public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive){
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                    .addSwipeLeftBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
-                    .addSwipeLeftActionIcon(R.drawable.ic_baseline_person_24)
-                    .addSwipeRightBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.purple_700))
-                    .addSwipeRightActionIcon(R.drawable.ic_baseline_person_24)
-//                    .addSwipeRightLabel(getString())
-                    .setSwipeRightLabelColor(Color.WHITE)
-//                    .addSwipeLeftLabel(getString(R.string.action_archive))
-                    .setSwipeLeftLabelColor(Color.WHITE)
-                    .create()
-                    .decorate();
-
-        }
-
-
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        item_Touch_Helper();
 
     }
 
+
+
     public void init_Recycler(){
         myDataBase = new MyDataBase(MainActivity.this);
-
-//        arrayName = new ArrayList<>();
-//        arrayPhone = new ArrayList<>();
-//        get_all_data();
         recyclerView = findViewById(R.id.rcy);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        adapteContacts = new AdapteContacts(arrayName,arrayPhone,R.drawable.ic_baseline_person_24,MainActivity.this);
-//        for (int i = 0; i < myDataBase.getcount(); i++) {
-//            arrayList = new ArrayList<>();
-//            arrayList.add(new Contact(arrayName,arrayPhone,R.drawable.ic_baseline_person_24));
-//            adapteContacts = new AdapteContacts(arrayList,MainActivity.this);
-//        Cursor cursor = myDataBase.show_all_data();
-//        for (int i = 0; i <cursor.getCount(); i++) {
-//            arrayList = new ArrayList<>();
-//            arrayList.add(new  Contact(name,phone,R.drawable.ic_baseline_person_24));
-//
-//        }
-        adapteContacts = new AdapteContacts(myDataBase.peopleList(),myDataBase,dialog,recyclerView,dName,R.drawable.girls,MainActivity.this,this);
-            recyclerView.setAdapter(adapteContacts);
-
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        adapteContacts = new AdapteContacts(myDataBase.peopleList(),myDataBase,R.drawable.girls,MainActivity.this,this);
+        recyclerView.setAdapter(adapteContacts);
 
     }
 
@@ -242,29 +162,115 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
-//        EditText dName = dialog.findViewById(R.id.et_name);
-//        EditText dPhone = dialog.findViewById(R.id.et_phone);
-
-
-
     }
 
 
-    void get_all_data() {
-        Cursor cursor = myDataBase.show_all_data();
-        if (cursor.getCount() == 0) {
-            Toast.makeText(this, "No date", Toast.LENGTH_SHORT).show();
-        } else {
-            while (cursor.moveToNext()) {
-                arrayName.add(cursor.getString(1));
-                arrayPhone.add(cursor.getString(2));
+    public void item_Touch_Helper(){
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
             }
-        }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                Contact contact;
+                int position = viewHolder.getAdapterPosition();
+
+                switch (direction) {
+                    case ItemTouchHelper.LEFT:
+
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                            if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED){
+                                try {
+//                                    SmsManager smsManager = SmsManager.getDefault();
+//                                    smsManager.sendTextMessage("09121537371" , null , "sghl" , null,null);
+                                    String number_for_sms = myDataBase.getPhone(position);
+                                    Intent sms = new Intent(Intent.ACTION_VIEW);
+                                    sms.putExtra("sms_body","");
+                                    sms.putExtra("address",number_for_sms);
+                                    sms.setData(Uri.parse("smsto:"));
+                                    sms.setType("vnd.android-dir/mms-sms");
+                                    startActivity(sms);
+                                    adapteContacts.notifyItemChanged(position);
+//                                    adapteContacts.removeItem(position);
+
+                                }catch (Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(MainActivity.this, "faild to", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }else {
+                                requestPermissions(new String[]{Manifest.permission.SEND_SMS},1);
+                            }
+                        }
+
+//                        Snackbar.make(recyclerView, deletedMovie, Snackbar.LENGTH_LONG)
+//                                .setAction("Undo", new View.OnClickListener() {
+//                                    @SuppressLint("ResourceAsColor")
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        arrayName.add(position, deletedMovie);
+//                                        adapteContacts.notifyItemInserted(position);
+//                                    }
+//                                }).show();
+                        break;
+
+                    case ItemTouchHelper.RIGHT:
+
+                        String number_for_phone = myDataBase.getPhone(position);
+                        Intent call = new Intent(Intent.ACTION_DIAL);
+                        call.setData(Uri.parse("tel:" + number_for_phone));
+                        startActivity(call);
+                        adapteContacts.notifyItemChanged(position);
+
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onChildDraw (Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive){
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.orang_massage))
+                        .addSwipeLeftActionIcon(R.drawable.ic_outline_sms_24)
+                        .addSwipeLeftLabel("Message")
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.green_call))
+                        .addSwipeRightActionIcon(R.drawable.ic_outline_phone_24)
+                        .addSwipeRightLabel("Call")
+                        .setIconHorizontalMargin(15)
+                        .setSwipeRightLabelColor(Color.WHITE)
+                        .setSwipeLeftLabelColor(Color.WHITE)
+                        .create()
+                        .decorate();
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
     }
 
 
 
+
+
+
+
+//    void get_all_data() {
+//        Cursor cursor = myDataBase.show_all_data();
+//        if (cursor.getCount() == 0) {
+//            Toast.makeText(this, "No date", Toast.LENGTH_SHORT).show();
+//        } else {
+//            while (cursor.moveToNext()) {
+//                arrayName.add(cursor.getString(1));
+//                arrayPhone.add(cursor.getString(2));
+//            }
+//        }
+//
+//    }
 
 //    public void full_name(){
 //        for (int i = 0; i < myDataBase.getcount(); i++) {
@@ -284,39 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

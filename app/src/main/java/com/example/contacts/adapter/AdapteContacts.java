@@ -34,22 +34,18 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
     TextInputEditText dphone;
     TextView tv_save;
     TextView tv_cancel;
-    RecyclerView recyclerView;
 
 
     public AdapteContacts() {
 
     }
 
-    public AdapteContacts(ArrayList<Contact> arrayList,MyDataBase db,Dialog dialog,RecyclerView recyclerView,TextInputEditText dname, int picture, Context context,MainActivity mainActivity) {
+    public AdapteContacts(ArrayList<Contact> arrayList,MyDataBase db, int picture, Context context,MainActivity mainActivity) {
         this.arrayList = arrayList;
         this.picture = picture;
         this.context = context;
-        this.mainActivity = mainActivity;
+//        this.mainActivity = mainActivity;
         this.db = db;
-        this.dialog=dialog;
-        this.dname=dname;
-        this.recyclerView =recyclerView;
 
     }
 
@@ -111,7 +107,6 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mainActivity=new MainActivity();
                 dialog = new Dialog(context);
                 dialog.setContentView(R.layout.sign_dialog);
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -128,6 +123,7 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
                 tv_save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         String new_name = dname.getText().toString();
                         String new_phone = dphone.getText().toString();
                         db.update_data(new Contact(new_name,new_phone,R.drawable.girls),contact.getId());
@@ -135,48 +131,28 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
                         arrayList.get(position).setDis(new_phone);
                         notifyItemChanged(position);
                         dialog.dismiss();
-//                        recyclerView = new RecyclerView(context);
-//                        recyclerView.findViewById(R.id.rcy);
-//                        context = new AdapteContacts(db.peopleList(),picture);
-//                        recyclerView.setAdapter(context);
-//                        db.add_Contact_new(new Contact(new_name,new_name,R.drawable.girls));
-//                        Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
+
                     }
 
                 });
                 tv_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Toast.makeText(context, "داده ای ذخیره نشد", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
 
-
-//                mainActivity.setContentView(R.layout.sign_dialog);
-//                  mainActivity.dialog_show();
-//                mainActivity.dName.setText(holder.title.getText());
-//                mainActivity.dPhone.setText(holder.title.getText());
-//                Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show();
             }
-            
-
 
         });
-
-
-
-//        MyDataBase myDataBase = new MyDataBase(context);
-//        myDataBase.add_Contact_new(contact);
-
 
         //<editor-fold desc=" Second ways ">
 //        holder.title.setText(String.valueOf(arrayList_name.get(position)));
 //        holder.phoen.setText(String.valueOf(arrayList_phone.get(position)));
 //        holder.pic.setImageResource(picture);
         //</editor-fold>
-//
-
 
     }
 
@@ -194,6 +170,7 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
         CircleImageView pic;
         ImageView delet;
         ImageView edit;
+
         public ViewHolder( View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tv_title);
@@ -203,20 +180,15 @@ public class AdapteContacts extends RecyclerView.Adapter<AdapteContacts.ViewHold
             edit = itemView.findViewById(R.id.img_edit);
 
         }
+    }
 
+    public Contact removeItem(int position) {
+        Contact item = null;
 
-
-
-        public Contact removeItem(int position) {
-            Contact item = null;
-
-                item = arrayList.get(position);
-                arrayList.remove(position);
-                notifyItemRemoved(position);
-            return item;
-        }
-
-
+        item = arrayList.get(position);
+        arrayList.remove(position);
+        notifyItemRemoved(position);
+        return item;
     }
 
 

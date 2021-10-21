@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="green_call">#1CB55B</color>
+    <color name="orang_massage">#FF6D00</color>
+
+
+
 </resources>

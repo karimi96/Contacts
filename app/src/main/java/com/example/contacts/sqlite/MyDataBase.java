@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class MyDataBase extends SQLiteOpenHelper {
     private static final String DB_Name = "MyContacts.db";
     private static final int version = 1 ;
-
     Context context;
 
     public MyDataBase(Context context) {
@@ -22,7 +21,6 @@ public class MyDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         String cQuery = "CREATE TABLE Contacts (cID INTEGER PRIMARY KEY AUTOINCREMENT , name TEXT , phone VARCHAR , image INTEGER);";
         db.execSQL(cQuery);
 
@@ -123,6 +121,14 @@ public class MyDataBase extends SQLiteOpenHelper {
 
 //    Use With My Way
 
+        public String getPhone(int pos){
+            SQLiteDatabase mDB= this.getReadableDatabase();
+            Cursor cursor = mDB.rawQuery("select phone from Contacts",null);
+            cursor.moveToPosition(pos);
+            String nam = cursor.getString(0);
+            return nam ;
+        }
+
 //    public String getname(int pos){
 //        SQLiteDatabase mDB= this.getReadableDatabase();
 //        Cursor cursor = mDB.rawQuery("select name from Contacts",null);
@@ -139,12 +145,6 @@ public class MyDataBase extends SQLiteOpenHelper {
 
 
 
-//    public String getPhone(int pos){
-//        SQLiteDatabase mDB= this.getReadableDatabase();
-//        Cursor cursor = mDB.rawQuery("select phone from Contacts",null);
-//        cursor.moveToPosition(pos);
-//        String nam = cursor.getString(0);
-//        return nam ;
-//    }
+
 
 }
