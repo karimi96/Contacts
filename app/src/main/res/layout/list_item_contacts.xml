@@ -1,63 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:id="@+id/liniyer"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
-
+        android:layout_height="70dp"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_weight="0.20"
             android:layout_width="0dp"
-            android:padding="8dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="0.20"
+            android:padding="8dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleImage"
-                android:src="@drawable/girls"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-<!--            <ImageView-->
-<!--                android:id="@+id/img_contact"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:src="@drawable/ic_round_person_24"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"/>-->
+                android:layout_height="match_parent"
+                android:src="@drawable/girls" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_weight="0.80"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="0.80"
             android:orientation="horizontal"
-            android:weightSum="3"
-            android:layout_height="match_parent">
+            android:weightSum="3">
 
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:layout_width="0dp"
-                android:layout_gravity="start"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:fontFamily="casual"
+                    android:fontFamily="@font/iran_sans"
                     android:text="عنوان"
                     android:textColor="#000000"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
 
                 <TextView
                     android:id="@+id/tv_phone"
@@ -65,64 +57,58 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="sans-serif-smallcaps"
+                    android:fontFamily="@font/irsansfanum"
                     android:text="09121342342"
                     android:textColor="#6e6e6e"
                     android:textSize="12dp" />
 
             </LinearLayout>
-<!--            <LinearLayout-->
-<!--                android:layout_weight="1"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
 
-           <LinearLayout
-               android:layout_weight="1"
-               android:layout_width="0dp"
-               android:gravity="end"
-               android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end">
 
-               <ImageView
-                   android:id="@+id/img_edit"
-                   android:layout_gravity="end"
-                   android:src="@drawable/ic_baseline_edit_24"
-                   android:layout_width="40dp"
-                   android:padding="5dp"
-                   android:layout_height="match_parent"/>
+                <ImageView
+                    android:id="@+id/img_edit"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_edit_24" />
 
-               <ImageView
-                   android:id="@+id/img_delet"
-                   android:layout_gravity="end"
-                   android:layout_marginStart="10dp"
-                   android:padding="5dp"
-                   android:src="@drawable/ic_baseline_delete_24"
-                   android:layout_width="40dp"
-                   android:layout_height="match_parent"/>
+                <ImageView
+                    android:id="@+id/img_delet"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="10dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_baseline_delete_24" />
 
-           </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
-
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="0.20"
-            android:layout_height="1dp" />
-
-        <LinearLayout
-
-            android:layout_width="0dp"
-            android:layout_weight="0.80"
             android:layout_height="1dp"
+            android:layout_weight="0.20" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="0.80"
             android:background="#9C9B9B" />
 
     </LinearLayout>
-
 
 </LinearLayout>
