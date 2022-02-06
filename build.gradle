@@ -21,6 +21,12 @@ allprojects {
 //        for call
         maven { url 'https://jitpack.io' }
     }
+
+//  for get pic from gallery
+//    mavenCentral() // For ImagePicker library, this line is enough. Although, it has been published on jitpack as well
+//    maven { url "https://jitpack.io" }  //Make sure to add this in your project for uCrop - an internal library
+
+
 }
 
 task clean(type: Delete) {

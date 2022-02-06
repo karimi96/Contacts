@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.contacts.activitys.Contact;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class MyDataBase extends SQLiteOpenHelper {
     private static final String DB_Name = "MyContacts.db";
-    private static final int version = 1 ;
+    private static final int version = 1;
     Context context;
 
     public MyDataBase(Context context) {
@@ -33,58 +34,30 @@ public class MyDataBase extends SQLiteOpenHelper {
     }
 
 
-//    Use With Contact Class
-    public  void add_Contact_new(Contact contact){
-        SQLiteDatabase db =this.getWritableDatabase();
+    //    Use With Contact Class
+    public void add_Contact_new(Contact contact) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("name",contact.getTitle() );
-        cv.put("phone",contact.getDis() );
-        long result = db.insert("Contacts",null,cv);
+        cv.put("name", contact.getTitle());
+        cv.put("phone", contact.getDis());
+        long result = db.insert("Contacts", null, cv);
 //        if (result == -1){
 //            Toast.makeText(context, "Faild", Toast.LENGTH_SHORT).show();
 //        }else {
 //            Toast.makeText(context, "Add Seccesfully", Toast.LENGTH_SHORT).show();
 //        }
-            db.close();
+        db.close();
     }
 
 
 
-// Without Use Contact Class By my way
-    public void add_Contact(String namee,String phonee){
-        SQLiteDatabase db =this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("name",namee );
-        cv.put("phone",phonee );
-        long result = db.insert("Contacts",null,cv);
-//        if (result == -1){
-//            Toast.makeText(context, "Faild", Toast.LENGTH_SHORT).show();
-//        }else {
-//            Toast.makeText(context, "Add Seccesfully", Toast.LENGTH_SHORT).show();
-//        }
-
-    }
-
-// Show date main methot
-    public Cursor show_all_data(){
-        SQLiteDatabase database = this.getReadableDatabase();
-        String query = " SELECT * FROM Contacts";
-        Cursor cursor = null;
-        if(database != null){
-            cursor = database.rawQuery(query,null);
-        }
-        return cursor;
-    }
-
-
-    public void update_data(Contact contact , int pos ){
+    public void update_data(Contact contact, int pos) {
         SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        values.put("name",contact.getTitle());
-        values.put("phone",contact.getDis());
-        database.update("Contacts",values,"cID=" + pos,null);
+        ContentValues values = new ContentValues();
+        values.put("name", contact.getTitle());
+        values.put("phone", contact.getDis());
+        database.update("Contacts", values, "cID=" + pos, null);
     }
-
 
 
     public ArrayList<Contact> peopleList() {
@@ -108,43 +81,21 @@ public class MyDataBase extends SQLiteOpenHelper {
         }
 //        db.close();
         return personLinkedList;
-
     }
 
 
-    public void deletdelet(int id){
-       SQLiteDatabase db = this.getWritableDatabase();
-       db.execSQL("delete from Contacts where cID ="+id);
+    public void deletdelet(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from Contacts where cID =" + id);
     }
 
 
-
-//    Use With My Way
-
-        public String getPhone(int pos){
-            SQLiteDatabase mDB= this.getReadableDatabase();
-            Cursor cursor = mDB.rawQuery("select phone from Contacts",null);
-            cursor.moveToPosition(pos);
-            String nam = cursor.getString(0);
-            return nam ;
-        }
-
-//    public String getname(int pos){
-//        SQLiteDatabase mDB= this.getReadableDatabase();
-//        Cursor cursor = mDB.rawQuery("select name from Contacts",null);
-//        cursor.moveToPosition(pos);
-//        String nam = cursor.getString(0);
-//        return nam ;
-//    }
-
-//    public int getcount(){
-//        SQLiteDatabase mDB= this.getReadableDatabase();
-//        Cursor cursor = mDB.rawQuery("select name from Contacts",null);
-//        return cursor.getCount() ;
-//    }
-
-
-
-
-
+    public String getPhone(int pos) {
+        SQLiteDatabase mDB = this.getReadableDatabase();
+        Cursor cursor = mDB.rawQuery("select phone from Contacts", null);
+        cursor.moveToPosition(pos);
+        String nam = cursor.getString(0);
+        Log.e("qqqq", "getPhone: get phone" + nam);
+        return nam;
+    }
 }

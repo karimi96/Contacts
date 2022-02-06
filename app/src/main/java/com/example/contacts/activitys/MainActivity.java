@@ -1,39 +1,34 @@
 package com.example.contacts.activitys;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.contacts.R;
 import com.example.contacts.adapter.AdapteContacts;
 import com.example.contacts.sqlite.MyDataBase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -52,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     String name;
     String phone;
 
+    ImageView imageView_choose_pic;
     public TextInputEditText dName;
     public TextInputEditText dPhone;
     private static final int OPEN_DOCUMENT_CODE = 2;
@@ -162,8 +158,61 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
-    }
+        imageView_choose_pic = dialog.findViewById(R.id.img_choose_picture);
+        imageView_choose_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ImagePicker.Companion.with(MainActivity.this)
+//                        .crop()
+//                        .cropOval()
+//                        .maxResultSize(1080,1080,true);
+//                        .start();
 
+//                ImagePicker.Companion.with(MainActivity.this)
+//                        .crop()	    			//Crop image(Optional), Check Customization for more option
+//                        .cropOval()	    		//Allow dimmed layer to have a circle inside
+//                        .cropFreeStyle()	    //Let the user to resize crop bounds
+//                        .galleryOnly()          //We have to define what image provider we want to use
+////                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+//                        .createIntent();
+
+//                Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_SHORT).show();
+
+//                ActivityResultLauncher<Intent> launcher =
+//                        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+//                            if (result.getResultCode() == RESULT_OK) {
+//                                Uri uri = result.getData().getData();
+//                                // Use the uri to load the image
+//                            } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+//                                // Use ImagePicker.Companion.getError(result.getData()) to show an error
+//                            }
+//                        });
+
+//
+//                ImagePicker.Companion.with(MainActivity.this)
+//                        .crop()
+//                        .cropOval()
+//                        .maxResultSize(512, 512, true)
+//                        .createIntentFromDialog((Function1) (new Function1() {
+//                            public Object invoke(Object var1) {
+//                                this.invoke((Intent) var1);
+//                                return Unit.INSTANCE;
+//                            }
+//
+//                            public final void invoke(@NotNull Intent it) {
+//                                Intrinsics.checkNotNullParameter(it, "it");
+//                                launcher.launch(it);
+//                            }
+//                        }));
+
+//                ImagePicker.with(MainActivity.this)
+//                        .galleryOnly()	//User can only select image from Gallery
+//                        .createIntent();	//Default Request Code is ImagePicker.REQUEST_CODE
+
+
+            }
+        });
+    }
 
     public void item_Touch_Helper(){
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
@@ -291,6 +340,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+//
+//    ActivityResultLauncher<Intent> launcher =
+//            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
+//                if (result.getResultCode() == RESULT_OK) {
+//                    Uri uri = result.getData().getData();
+//                    // Use the uri to load the image
+//                    imageView_choose_pic.setImageURI(uri);
+//                } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
+//                    // Use ImagePicker.Companion.getError(result.getData()) to show an error
+//                }
+//
+//            });
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//
+//        Uri uri = result.getData().getData();
+//        // Use the uri to load the image
+//        imageView_choose_pic.setImageURI(uri);
+
+
+    }
 }
 
