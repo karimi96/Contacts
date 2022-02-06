@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/new/Root/AndroidStudio/New Version/Contacts/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/Contacts/app/src/main/res/layout/list_item_contacts.xml" value="0.33" />
+        <entry key="..\:/new/Root/AndroidStudio/New Version/Contacts/app/src/main/res/layout/sign_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/sqlite/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/sqlite/app/src/main/res/layout/list_item_contacts.xml" value="0.22" />
         <entry key="..\:/new/Root/AndroidStudio/New Version/sqlite/app/src/main/res/layout/sign_dialog.xml" value="0.25" />
