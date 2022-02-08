@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,18 +33,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    AdapteContacts adapteContacts;
-    RecyclerView recyclerView;
-    ArrayList<Contact> arrayList;
-    FloatingActionButton floatingActionButton;
-    Dialog dialog;
-    SQLiteDatabase db;
-    MyDataBase myDataBase;
-    Toolbar toolbar;
-    String name;
-    String phone;
-
-    ImageView imageView_choose_pic;
+    private AdapteContacts adapteContacts;
+    private RecyclerView recyclerView;
+    private FloatingActionButton floatingActionButton;
+    private Dialog dialog;
+    private SQLiteDatabase db;
+    private MyDataBase myDataBase;
+    private Toolbar toolbar;
+    private String name;
+    private String phone;
+    private ImageView imageView_choose_pic;
     public TextInputEditText dName;
     public TextInputEditText dPhone;
 
@@ -67,38 +64,35 @@ public class MainActivity extends AppCompatActivity {
         TextView save = dialog.findViewById(R.id.btn_save);
         save.setOnClickListener(v -> {
 
-                name = dName.getText().toString();
-                phone = dPhone.getText().toString();
+            name = dName.getText().toString();
+            phone = dPhone.getText().toString();
 
-                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone)) {
+            if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone)) {
 
-                    Toast.makeText(MainActivity.this, "تمامی فیلدها باید تکمیل شود", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "تمامی فیلدها باید تکمیل شود", Toast.LENGTH_LONG).show();
 
-                } else {
-                    myDataBase.add_Contact_new(new Contact(name, phone, R.drawable.ic_baseline_person_24));
-                    init_Recycler();
-                    Toast.makeText(MainActivity.this, name + "  با موفقیت ثبت شد ", Toast.LENGTH_LONG).show();
-                    dName.setText("");
-                    dPhone.setText("");
-                    dialog.dismiss();
-                }
+            } else {
+                myDataBase.add_Contact_new(new Contact(name, phone, R.drawable.ic_baseline_person_24));
+                init_Recycler();
+                Toast.makeText(MainActivity.this, name + "  با موفقیت ثبت شد ", Toast.LENGTH_LONG).show();
+                dName.setText("");
+                dPhone.setText("");
+                dialog.dismiss();
+            }
         });
 
 
         TextView cancel = dialog.findViewById(R.id.btn_cancel);
         cancel.setOnClickListener(v -> {
-                Toast.makeText(MainActivity.this, " کنسل شد", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+            Toast.makeText(MainActivity.this, " کنسل شد", Toast.LENGTH_LONG).show();
+            dialog.dismiss();
 
         });
 
 
         floatingActionButton = findViewById(R.id.floating);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        floatingActionButton.setOnClickListener(v -> {
                 dialog.show();
-            }
         });
 
 
@@ -137,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                Contact contact;
                 int position = viewHolder.getAdapterPosition();
 
                 switch (direction) {
@@ -154,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                                     sms.setType("vnd.android-dir/mms-sms");
                                     startActivity(sms);
                                     adapteContacts.notifyItemChanged(position);
-
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     Toast.makeText(MainActivity.this, "faild to", Toast.LENGTH_SHORT).show();
@@ -163,16 +155,6 @@ public class MainActivity extends AppCompatActivity {
                                 requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 1);
                             }
                         }
-
-//                        Snackbar.make(recyclerView, deletedMovie, Snackbar.LENGTH_LONG)
-//                                .setAction("Undo", new View.OnClickListener() {
-//                                    @SuppressLint("ResourceAsColor")
-//                                    @Override
-//                                    public void onClick(View v) {
-//                                        arrayName.add(position, deletedMovie);
-//                                        adapteContacts.notifyItemInserted(position);
-//                                    }
-//                                }).show();
                         break;
 
                     case ItemTouchHelper.RIGHT:
@@ -181,8 +163,6 @@ public class MainActivity extends AppCompatActivity {
                         call.setData(Uri.parse("tel:" + number_for_phone));
                         startActivity(call);
                         adapteContacts.notifyItemChanged(position);
-
-
                         break;
                 }
             }
@@ -208,34 +188,6 @@ public class MainActivity extends AppCompatActivity {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
-    }
-
-
-
-
-//
-//    ActivityResultLauncher<Intent> launcher =
-//            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
-//                if (result.getResultCode() == RESULT_OK) {
-//                    Uri uri = result.getData().getData();
-//                    // Use the uri to load the image
-//                    imageView_choose_pic.setImageURI(uri);
-//                } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
-//                    // Use ImagePicker.Companion.getError(result.getData()) to show an error
-//                }
-//
-//            });
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-//
-//        Uri uri = result.getData().getData();
-//        // Use the uri to load the image
-//        imageView_choose_pic.setImageURI(uri);
-
 
     }
 }
