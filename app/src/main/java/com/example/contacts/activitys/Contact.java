@@ -1,35 +1,20 @@
 package com.example.contacts.activitys;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 public class Contact {
-    int id;
-    String title;
-    String phone;
-//    ArrayList<String> tit;
-//    ArrayList<String> ph;
-    int image;
+    public int id;
+    public String title;
+    public String phone;
+    public int image;
 
-    public Contact() {
-    }
 
-    //    public Contact(ArrayList<String> tit, ArrayList<String> ph,int image) {
-//        this.tit = tit;
-//        this.ph = ph;
-//        this.image = image;
-//    }
-//
-        public Contact(String title, String dis, int image) {
+    public Contact(String title, String dis, int image) {
         this.title = title;
         this.phone = dis;
         this.image = image;
     }
 
-//    public Contact(String title, String phone) {
-//        this.title = title;
-//        this.phone = phone;
-//    }
-
+    public Contact() {
+    }
 
     public int getId() {
         return id;
@@ -47,12 +32,12 @@ public class Contact {
         this.title = title;
     }
 
-    public String getDis() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setDis(String dis) {
-        this.phone = dis;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getImage() {
@@ -62,29 +47,4 @@ public class Contact {
     public void setImage(int image) {
         this.image = image;
     }
-
-
-//    public ArrayList<String> getTit() {
-//        return tit;
-//    }
-//
-//    public void setTit(ArrayList<String> tit) {
-//        this.tit = tit;
-//    }
-//
-//    public ArrayList<String> getPh() {
-//        return ph;
-//    }
-//
-//    public void setPh(ArrayList<String> ph) {
-//        this.ph = ph;
-//    }
-//
-//    public int getImage() {
-//        return image;
-//    }
-//
-//    public void setImage(int image) {
-//        this.image = image;
-//    }
 }
