@@ -34,28 +34,21 @@ public class MyDataBase extends SQLiteOpenHelper {
     }
 
 
-    //    Use With Contact Class
     public void add_Contact_new(Contact contact) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("name", contact.getTitle());
-        cv.put("phone", contact.getDis());
+        cv.put("phone", contact.getPhone());
         long result = db.insert("Contacts", null, cv);
-//        if (result == -1){
-//            Toast.makeText(context, "Faild", Toast.LENGTH_SHORT).show();
-//        }else {
-//            Toast.makeText(context, "Add Seccesfully", Toast.LENGTH_SHORT).show();
-//        }
         db.close();
     }
-
 
 
     public void update_data(Contact contact, int pos) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name", contact.getTitle());
-        values.put("phone", contact.getDis());
+        values.put("phone", contact.getPhone());
         database.update("Contacts", values, "cID=" + pos, null);
     }
 
@@ -75,7 +68,7 @@ public class MyDataBase extends SQLiteOpenHelper {
 
                 contact.setId(cursor.getInt(cursor.getColumnIndex("cID")));
                 contact.setTitle(cursor.getString(cursor.getColumnIndex("name")));
-                contact.setDis(cursor.getString(cursor.getColumnIndex("phone")));
+                contact.setPhone(cursor.getString(cursor.getColumnIndex("phone")));
                 personLinkedList.add(contact);
             } while (cursor.moveToNext());
         }
